@@ -16,14 +16,14 @@ for (let i = 0; i < amount; i++) {
     completedPromises++;
         if (completedPromises === amount) {
           startButton.removeAttribute('disabled');
-        }
+    }
   })
   .catch(({position, delay}) => {
     console.log(`❌ Rejected promise ${position + 1} in ${delay}ms`);
     completedPromises++;
         if (completedPromises === amount) {
           startButton.removeAttribute('disabled');
-        }
+    }
   })
   };
 });
