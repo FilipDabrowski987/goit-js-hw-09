@@ -9,20 +9,45 @@ const minutesSpan = document.querySelector('span[data-minutes]');
 const secondsSpan = document.querySelector('span[data-seconds]');
 
 flatpickr(datePicker, {
-    enableTime: true,
-    time_24hr: true,
-    defaultDate: new Date(),
-    minuteIncrement: 1,
-    onClose(selectedDates) {
-    startCountdown(selectedDates[0].getTime());
-    },
+  enableTime: true,
+  time_24hr: true,
+  defaultDate: new Date(),
+  minuteIncrement: 1,
+  onClose(selectedDates) {
+    if (selectedDates[0] < new Date()) {
+      startButton.setAttribute('disabled', true);
+      window.alert('Please choose a date in the future');
+    } else {
+      startButton.removeAttribute('disabled');
+      console.log(selectedDates[0]);
+    };
+  },
 });
 
 startButton.addEventListener('click', () => {
-    //startButton.disabled = true;
-    //timerId = setInterval(() => {
-    //flatpickr();
+  setInterval(() => {
+    datePicker.setAttribute('disabled', true);
+    startButton.setAttribute('disabled', true);
+    const differenceTime = new Date(datePicker.value) - new Date();
+
+ if (differenceTime < 0) {
+    clearInterval();
+    datePicker.removeAttribute('disabled');
+    startButton.removeAttribute('disabled');
+    return;
+};
+
+    const { days, hours, minutes, seconds } = convertMs(differenceTime);
+    daysSpan.textContent = addLeadingZero(days);
+    hoursSpan.textContent = addLeadingZero(hours);
+    minutesSpan.textContent = addLeadingZero(minutes);
+    secondsSpan.textContent = addLeadingZero(seconds);   
+  }, 1000);
 });
+
+function addLeadingZero(value) {
+  return value.toString().padStart(2, '0');
+};
 
 function convertMs(ms) {
 // Number of milliseconds per unit of time
