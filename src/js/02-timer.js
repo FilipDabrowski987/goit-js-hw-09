@@ -19,7 +19,6 @@ flatpickr(datePicker, {
       window.alert('Please choose a date in the future');
     } else {
       startButton.removeAttribute('disabled');
-      console.log(selectedDates[0]);
     };
   },
 });
