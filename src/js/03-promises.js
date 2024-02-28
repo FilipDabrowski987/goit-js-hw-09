@@ -13,18 +13,18 @@ for (let i = 0; i < amount; i++) {
   createPromise(i, delay + i * step)
   .then(({position, delay}) => {
     console.log(`✅ Fulfilled promise ${position + 1} in ${delay}ms`);
-     completedPromises++;
+    completedPromises++;
         if (completedPromises === amount) {
           startButton.removeAttribute('disabled');
         }
   })
   .catch(({position, delay}) => {
     console.log(`❌ Rejected promise ${position + 1} in ${delay}ms`);
-     completedPromises++;
+    completedPromises++;
         if (completedPromises === amount) {
           startButton.removeAttribute('disabled');
         }
-  });
+  })
   };
 });
 
